@@ -1,0 +1,17 @@
+### get all teams
+GET http://localhost:8070/webapi/teams
+Authorization: Basic {{username}} {{password}}
+### get teams having player
+GET http://localhost:8070/webapi/players/1/teams
+Accept: application/json
+Authorization: Basic {{username}} {{password}}
+
+### create new team
+POST http://localhost:8070/webapi/teams
+Content-Type: application/json
+Authorization: Basic {{username}} {{password}}
+
+{
+  "name": "GKS Katowiceee",
+  "logo": "nibylogo.png"
+}

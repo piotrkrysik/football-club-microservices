@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  mysql-books:
+    image: mysql:8.0
+    cap_add:
+      - SYS_NICE
+    restart: always
+    environment:
+      - MYSQL_DATABASE=club
+      - MYSQL_ROOT_PASSWORD=mysql
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+  ms-players-1:
+    image: skull99/ms-players-1
+    build: ../ms-players
+    ports:
+      - '8090:8080'
+    depends_on:
+      - mysql-books
+  ms-teams-1:
+    image: skull99/ms-teams-1
+    build: ../ms-teams
+    ports:
+      - '8091:8070'
+    depends_on:
+      - mysql-books
+  ms-teams-2:
+    image: skull99/ms-teams-1
+    ports:
+      - '8092:8070'
+    depends_on:
+      - mysql-books
